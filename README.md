@@ -2,7 +2,8 @@ This repository is a playground and development environment for the https://gith
 It can be started with the following command.
 
 ```cmd
-npm run start
+$ npm install
+$ npm run start
 ```
 
 If you are developing a pdfme library, please refer to the following document.

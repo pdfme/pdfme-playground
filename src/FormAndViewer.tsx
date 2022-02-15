@@ -5,6 +5,21 @@ import { getTemplate, getTemplateFromJsonFile, isJsonString } from "./helper";
 
 type Mode = "form" | "viewer";
 
+const initTemplate = () => {
+  let template: Template = getTemplate();
+  try {
+    const templateString = localStorage.getItem("template");
+    const templateJson = templateString
+      ? JSON.parse(templateString)
+      : getTemplate();
+    checkTemplate(templateJson);
+    template = templateJson as Template;
+  } catch {
+    localStorage.removeItem("template");
+  }
+  return template;
+};
+
 function App() {
   const uiRef = useRef<HTMLDivElement | null>(null);
   const ui = useRef<Form | Viewer | null>(null);
@@ -15,17 +30,7 @@ function App() {
 
   useEffect(() => {
     if (uiRef.current) {
-      let template: Template = getTemplate();
-      try {
-        const templateString = localStorage.getItem("template");
-        const templateJson = templateString
-          ? JSON.parse(templateString)
-          : getTemplate();
-        checkTemplate(templateJson);
-        template = templateJson as Template;
-      } catch {
-        localStorage.removeItem("template");
-      }
+      const template = initTemplate();
       let inputs = template.sampledata ?? [{}];
       try {
         const inputsString = localStorage.getItem("inputs");
@@ -104,7 +109,7 @@ ${e}`);
   const onResetInputs = () => {
     localStorage.removeItem("inputs");
     if (ui.current) {
-      const template: Template = getTemplate();
+      const template = initTemplate();
       ui.current.setInputs(template.sampledata ?? [{}]);
     }
   };

@@ -26,11 +26,21 @@ function App() {
       } catch {
         localStorage.removeItem("template");
       }
+      let inputs = template.sampledata ?? [{}];
+      try {
+        const inputsString = localStorage.getItem("inputs");
+        const inputsJson = inputsString
+          ? JSON.parse(inputsString)
+          : template.sampledata ?? [{}];
+        inputs = inputsJson;
+      } catch {
+        localStorage.removeItem("inputs");
+      }
 
       ui.current = new (mode === "form" ? Form : Viewer)({
         domContainer: uiRef.current,
         template,
-        inputs: template.sampledata ?? [{}],
+        inputs,
       });
     }
     return () => {
@@ -80,6 +90,22 @@ ${e}`);
       } catch (e) {
         alert(e);
       }
+    }
+  };
+
+  const onSaveInputs = () => {
+    if (ui.current) {
+      const inputs = ui.current.getInputs();
+      localStorage.setItem("inputs", JSON.stringify(inputs));
+      alert("Saved!");
+    }
+  };
+
+  const onResetInputs = () => {
+    localStorage.removeItem("inputs");
+    if (ui.current) {
+      const template: Template = getTemplate();
+      ui.current.setInputs(template.sampledata ?? [{}]);
     }
   };
 
@@ -134,6 +160,10 @@ ${e}`);
         <button onClick={onGetInputs}>Get Inputs</button>
         <span style={{ margin: "0 1rem" }}>/</span>
         <button onClick={onSetInputs}>Set Inputs</button>
+        <span style={{ margin: "0 1rem" }}>/</span>
+        <button onClick={onSaveInputs}>Save Inputs</button>
+        <span style={{ margin: "0 1rem" }}>/</span>
+        <button onClick={onResetInputs}>Reset Inputs</button>
         <span style={{ margin: "0 1rem" }}>/</span>
         <button onClick={onGeneratePDF}>Generate PDF</button>
       </header>

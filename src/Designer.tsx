@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Designer, Template, checkTemplate } from "@pdfme/ui";
 import { generate } from "@pdfme/generator";
 import {
+  getFontsData,
   getTemplate,
   readFile,
   cloneDeep,
@@ -14,25 +15,28 @@ function App() {
   const designer = useRef<Designer | null>(null);
 
   useEffect(() => {
-    if (designerRef.current) {
-      let template: Template = getTemplate();
-      try {
-        const templateString = localStorage.getItem("template");
-        const templateJson = templateString
-          ? JSON.parse(templateString)
-          : getTemplate();
-        checkTemplate(templateJson);
-        template = templateJson as Template;
-      } catch {
-        localStorage.removeItem("template");
-      }
-
-      designer.current = new Designer({
-        domContainer: designerRef.current,
-        template,
-      });
-      designer.current.onSaveTemplate(onSaveTemplate);
+    let template: Template = getTemplate();
+    try {
+      const templateString = localStorage.getItem("template");
+      const templateJson = templateString
+        ? JSON.parse(templateString)
+        : getTemplate();
+      checkTemplate(templateJson);
+      template = templateJson as Template;
+    } catch {
+      localStorage.removeItem("template");
     }
+
+    getFontsData().then((font) => {
+      if (designerRef.current) {
+        designer.current = new Designer({
+          domContainer: designerRef.current,
+          template,
+          options: { font },
+        });
+        designer.current.onSaveTemplate(onSaveTemplate);
+      }
+    });
     return () => {
       if (designer.current) {
         designer.current.destroy();
@@ -97,7 +101,8 @@ ${e}`);
     if (designer.current) {
       const template = designer.current.getTemplate();
       const inputs = template.sampledata ?? [];
-      const pdf = await generate({ template, inputs });
+      const font = await getFontsData();
+      const pdf = await generate({ template, inputs, options: { font } });
       const blob = new Blob([pdf.buffer], { type: "application/pdf" });
       window.open(URL.createObjectURL(blob));
     }

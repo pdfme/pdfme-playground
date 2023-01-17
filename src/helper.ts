@@ -1,4 +1,32 @@
-import { Template, checkTemplate } from "@pdfme/generator";
+import { Template, Font, checkTemplate } from "@pdfme/generator";
+
+const fontObjList = [
+  {
+    fallback: true,
+    label: "SauceHanSansJP",
+    url: "/fonts/SauceHanSansJP.ttf",
+  },
+  {
+    fallback: false,
+    label: "SauceHanSerifJP",
+    url: "/fonts/SauceHanSerifJP.ttf",
+  },
+  { fallback: false, label: "ZenKurenaido", url: "/fonts/ZenKurenaido.ttf" },
+];
+
+export const getFontsData = async () => {
+  const fontDataList = await Promise.all(
+    fontObjList.map(async (font) => ({
+      ...font,
+      data: await fetch(font.url).then((res) => res.arrayBuffer()),
+    }))
+  );
+
+  return fontDataList.reduce(
+    (acc, font) => ({ ...acc, [font.label]: font }),
+    {} as Font
+  );
+};
 
 export const readFile = (
   file: File | null,

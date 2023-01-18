@@ -82,10 +82,9 @@ ${e}`);
 
   const onSaveTemplate = (template?: Template) => {
     if (designer.current) {
-      localStorage.setItem(
-        "template",
-        JSON.stringify(template || designer.current.getTemplate())
-      );
+      const data = template || designer.current.getTemplate();
+      console.log(data);
+      localStorage.setItem("template", JSON.stringify(data));
       alert("Saved!");
     }
   };

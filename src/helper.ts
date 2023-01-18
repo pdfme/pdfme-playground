@@ -3,15 +3,24 @@ import { Template, Font, checkTemplate } from "@pdfme/generator";
 const fontObjList = [
   {
     fallback: true,
-    label: "SauceHanSansJP",
-    url: "/fonts/SauceHanSansJP.ttf",
+    label: "NotoSansJP-Regular",
+    url: "/fonts/NotoSansJP-Regular.ttf",
   },
   {
     fallback: false,
-    label: "SauceHanSerifJP",
-    url: "/fonts/SauceHanSerifJP.ttf",
+    label: "NotoSansSC-Regular",
+    url: "/fonts/NotoSansSC-Regular.otf",
   },
-  { fallback: false, label: "ZenKurenaido", url: "/fonts/ZenKurenaido.ttf" },
+  {
+    fallback: false,
+    label: "NotoSerifJP-Regular",
+    url: "/fonts/NotoSerifJP-Regular.ttf",
+  },
+  {
+    fallback: false,
+    label: "ZenKurenaido-Regular",
+    url: "/fonts/ZenKurenaido-Regular.ttf",
+  },
 ];
 
 export const getFontsData = async () => {

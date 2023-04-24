@@ -9,7 +9,7 @@ const fontObjList = [
   {
     fallback: false,
     label: "NotoSansSC-Regular",
-    url: "/fonts/NotoSansSC-Regular.otf",
+    url: "/fonts/NotoSansSC-Regular.ttf",
   },
   {
     fallback: false,

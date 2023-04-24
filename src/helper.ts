@@ -3,18 +3,18 @@ import { Template, Font, checkTemplate } from "@pdfme/generator";
 const fontObjList = [
   {
     fallback: true,
+    label: "NotoSerifJP-Regular",
+    url: "/fonts/NotoSerifJP-Regular.otf",
+  },
+  {
+    fallback: false,
     label: "NotoSansJP-Regular",
-    url: "/fonts/NotoSansJP-Regular.ttf",
+    url: "/fonts/NotoSansJP-Regular.otf",
   },
   {
     fallback: false,
     label: "NotoSansSC-Regular",
-    url: "/fonts/NotoSansSC-Regular.ttf",
-  },
-  {
-    fallback: false,
-    label: "NotoSerifJP-Regular",
-    url: "/fonts/NotoSerifJP-Regular.ttf",
+    url: "/fonts/NotoSansSC-Regular.otf",
   },
   {
     fallback: false,

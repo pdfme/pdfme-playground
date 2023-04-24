@@ -7,7 +7,8 @@
         "width": 77.77,
         "height": 18.7,
         "fontSize": 36,
-        "fontColor": "#14b351"
+        "fontColor": "#14b351",
+        "fontName": "NotoSansJP-Regular"
       },
       "photo": {
         "type": "image",
@@ -20,14 +21,16 @@
         "position": { "x": 36, "y": 179.46 },
         "width": 43.38,
         "height": 6.12,
-        "fontSize": 12
+        "fontSize": 12,
+        "fontName": "NotoSansSC-Regular"
       },
       "sex": {
         "type": "text",
         "position": { "x": 36, "y": 186.23 },
         "width": 43.38,
         "height": 6.12,
-        "fontSize": 12
+        "fontSize": 12,
+        "fontName": "ZenKurenaido-Regular"
       },
       "weight": {
         "type": "text",

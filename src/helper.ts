@@ -111,6 +111,7 @@ export const getTemplate = () => {
           height: 18.7,
           fontSize: 36,
           fontColor: "#14b351",
+          fontName: "NotoSerifJP-Regular"
         },
         photo: {
           type: "image",
@@ -130,16 +131,18 @@ export const getTemplate = () => {
           width: 43.38,
           height: 6.12,
           fontSize: 12,
+          fontName: "NotoSerifJP-Regular"
         },
         sex: {
           type: "text",
           position: {
-            x: 35.5,
+            x: 35,
             y: 185.23
           },
           width: 43.38,
           height: 6.12,
           fontSize: 12,
+          fontName: "NotoSerifJP-Regular"
         },
         weight: {
           type: "text",
@@ -150,6 +153,7 @@ export const getTemplate = () => {
           width: 43.38,
           height: 6.12,
           fontSize: 12,
+          fontName: "NotoSerifJP-Regular"
         },
         breed: {
           type: "text",
@@ -160,6 +164,7 @@ export const getTemplate = () => {
           width: 43.38,
           height: 6.12,
           fontSize: 12,
+          fontName: "NotoSerifJP-Regular"
         },
         owner: {
           type: "qrcode",

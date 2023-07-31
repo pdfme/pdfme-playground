@@ -2,9 +2,13 @@
   "name": "pdfme-playground",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
-    "@pdfme/generator": "^1.2.5",
-    "@pdfme/ui": "^1.2.5",
+    "@pdfme/common": "^2.0.1",
+    "@pdfme/generator": "^2.0.1",
+    "@pdfme/ui": "^2.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",

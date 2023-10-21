@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
-import { Designer, Template, checkTemplate } from "@pdfme/ui";
+import { Template, checkTemplate } from "@pdfme/common";
+import { Designer } from "@pdfme/ui";
 import { generate } from "@pdfme/generator";
+import { barcodes } from "@pdfme/schemas"
 import {
   getFontsData,
   getTemplate,
@@ -33,6 +35,10 @@ function App() {
           domContainer: designerRef.current,
           template,
           options: { font },
+          plugins: {
+            qrcode: barcodes.qrcode,
+            code128: barcodes.code128
+          }
         });
         designer.current.onSaveTemplate(onSaveTemplate);
       }
@@ -77,6 +83,7 @@ ${e}`);
   const onDownloadTemplate = () => {
     if (designer.current) {
       downloadJsonFile(designer.current.getTemplate(), "template");
+      console.log(designer.current.getTemplate());
     }
   };
 
@@ -102,7 +109,14 @@ ${e}`);
       const template = designer.current.getTemplate();
       const inputs = template.sampledata ?? [];
       const font = await getFontsData();
-      const pdf = await generate({ template, inputs, options: { font } });
+      const pdf = await generate({
+        template, inputs,
+        options: { font },
+        plugins: {
+          qrcode: barcodes.qrcode,
+          code128: barcodes.code128
+        }
+      });
       const blob = new Blob([pdf.buffer], { type: "application/pdf" });
       window.open(URL.createObjectURL(blob));
     }

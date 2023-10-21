@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Form, Viewer, Template, checkTemplate } from "@pdfme/ui";
+import { Template, checkTemplate } from "@pdfme/common";
+import { Form, Viewer } from "@pdfme/ui";
 import { generate } from "@pdfme/generator";
 import {
   getFontsData,

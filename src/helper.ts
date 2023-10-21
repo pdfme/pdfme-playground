@@ -1,4 +1,4 @@
-import { Template, Font, checkTemplate } from "@pdfme/generator";
+import { Template, Font, checkTemplate } from "@pdfme/common";
 
 const fontObjList = [
   {

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Template, checkTemplate } from "@pdfme/common";
 import { Designer } from "@pdfme/ui";
 import { generate } from "@pdfme/generator";
-import { barcodes,image } from "@pdfme/schemas"
+import { barcodes, image } from "@pdfme/schemas"
 import {
   getFontsData,
   getTemplate,

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Template, checkTemplate } from "@pdfme/common";
 import { Form, Viewer } from "@pdfme/ui";
 import { generate } from "@pdfme/generator";
+import { barcodes, image } from "@pdfme/schemas"
 import {
   getFontsData,
   getTemplate,
@@ -54,6 +55,10 @@ function App() {
           template,
           inputs,
           options: { font },
+          plugins: {
+            image,
+            qrcode: barcodes.qrcode,
+          }
         });
       }
     });
@@ -129,7 +134,15 @@ ${e}`);
       const template = ui.current.getTemplate();
       const inputs = ui.current.getInputs();
       const font = await getFontsData();
-      const pdf = await generate({ template, inputs, options: { font } });
+      const pdf = await generate({
+        template,
+        inputs,
+        options: { font },
+        plugins: {
+          image,
+          qrcode: barcodes.qrcode,
+        }
+      });
       const blob = new Blob([pdf.buffer], { type: "application/pdf" });
       window.open(URL.createObjectURL(blob));
     }

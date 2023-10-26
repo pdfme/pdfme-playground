@@ -109,6 +109,7 @@ export const getTemplate = () => {
           },
           width: 77.77,
           height: 18.7,
+          rotate:0,
           fontSize: 36,
           fontColor: "#14b351",
           fontName: "NotoSerifJP-Regular"
@@ -120,7 +121,8 @@ export const getTemplate = () => {
             y: 65.61
           },
           width: 60.66,
-          height: 93.78
+          height: 93.78,
+          rotate:0,
         },
         age: {
           type: "text",
@@ -130,6 +132,7 @@ export const getTemplate = () => {
           },
           width: 43.38,
           height: 6.12,
+          rotate:0,
           fontSize: 12,
           fontName: "NotoSerifJP-Regular"
         },
@@ -141,6 +144,7 @@ export const getTemplate = () => {
           },
           width: 43.38,
           height: 6.12,
+          rotate:0,
           fontSize: 12,
           fontName: "NotoSerifJP-Regular"
         },
@@ -152,6 +156,7 @@ export const getTemplate = () => {
           },
           width: 43.38,
           height: 6.12,
+          rotate:0,
           fontSize: 12,
           fontName: "NotoSerifJP-Regular"
         },
@@ -163,6 +168,7 @@ export const getTemplate = () => {
           },
           width: 43.38,
           height: 6.12,
+          rotate:0,
           fontSize: 12,
           fontName: "NotoSerifJP-Regular"
         },
@@ -174,6 +180,7 @@ export const getTemplate = () => {
           },
           width: 26.53,
           height: 26.53,
+          rotate:0,
         },
       },
     ],

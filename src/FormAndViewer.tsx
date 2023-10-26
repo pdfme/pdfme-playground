@@ -10,6 +10,8 @@ import {
   isJsonString,
 } from "./helper";
 
+const headerHeight = 65;
+
 type Mode = "form" | "viewer";
 
 const initTemplate = () => {
@@ -198,7 +200,7 @@ ${e}`);
         <span style={{ margin: "0 1rem" }}>/</span>
         <button onClick={onGeneratePDF}>Generate PDF</button>
       </header>
-      <div ref={uiRef} />
+      <div ref={uiRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }}/>
     </div>
   );
 }

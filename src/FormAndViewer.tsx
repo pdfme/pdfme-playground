@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Template, checkTemplate } from "@pdfme/common";
 import { Form, Viewer } from "@pdfme/ui";
 import { generate } from "@pdfme/generator";
-import { barcodes, image } from "@pdfme/schemas"
+import { text, barcodes, image } from "@pdfme/schemas"
 import {
   getFontsData,
   getTemplate,
@@ -56,6 +56,7 @@ function App() {
           inputs,
           options: { font },
           plugins: {
+            text,
             image,
             qrcode: barcodes.qrcode,
           }
@@ -139,6 +140,7 @@ ${e}`);
         inputs,
         options: { font },
         plugins: {
+          text,
           image,
           qrcode: barcodes.qrcode,
         }

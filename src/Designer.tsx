@@ -12,6 +12,8 @@ import {
   downloadJsonFile,
 } from "./helper";
 
+const headerHeight = 65;
+
 function App() {
   const designerRef = useRef<HTMLDivElement | null>(null);
   const designer = useRef<Designer | null>(null);
@@ -161,7 +163,7 @@ ${e}`);
         <span style={{ margin: "0 1rem" }}>/</span>
         <button onClick={onGeneratePDF}>Generate PDF</button>
       </header>
-      <div ref={designerRef} />
+      <div ref={designerRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }}/>
     </div>
   );
 }

@@ -6,10 +6,10 @@
     "node": "18.x"
   },
   "dependencies": {
-    "@pdfme/common": "^2.2.1",
-    "@pdfme/generator": "^2.2.1",
-    "@pdfme/schemas": "^2.2.1",
-    "@pdfme/ui": "^2.2.1",
+    "@pdfme/common": "^3.0.0-beta.2",
+    "@pdfme/generator": "^3.0.0-beta.2",
+    "@pdfme/schemas": "^3.0.0-beta.2",
+    "@pdfme/ui": "^3.0.0-beta.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",

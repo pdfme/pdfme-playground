@@ -1,4 +1,5 @@
-import { Template, generate, checkTemplate } from "@pdfme/generator";
+import { Template, checkTemplate } from "@pdfme/common"
+import { generate } from "@pdfme/generator";
 import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 

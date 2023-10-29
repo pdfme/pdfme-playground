@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
-import { Designer, Template, checkTemplate } from "@pdfme/ui";
+import { Template, checkTemplate } from "@pdfme/common";
+import { Designer } from "@pdfme/ui";
 import { generate } from "@pdfme/generator";
+import { text, barcodes, image } from "@pdfme/schemas"
 import {
   getFontsData,
   getTemplate,
@@ -9,6 +11,8 @@ import {
   getTemplateFromJsonFile,
   downloadJsonFile,
 } from "./helper";
+
+const headerHeight = 65;
 
 function App() {
   const designerRef = useRef<HTMLDivElement | null>(null);
@@ -33,6 +37,11 @@ function App() {
           domContainer: designerRef.current,
           template,
           options: { font },
+          plugins: {
+            text,
+            image,
+            qrcode: barcodes.qrcode,
+          }
         });
         designer.current.onSaveTemplate(onSaveTemplate);
       }
@@ -77,6 +86,7 @@ ${e}`);
   const onDownloadTemplate = () => {
     if (designer.current) {
       downloadJsonFile(designer.current.getTemplate(), "template");
+      console.log(designer.current.getTemplate());
     }
   };
 
@@ -102,7 +112,15 @@ ${e}`);
       const template = designer.current.getTemplate();
       const inputs = template.sampledata ?? [];
       const font = await getFontsData();
-      const pdf = await generate({ template, inputs, options: { font } });
+      const pdf = await generate({
+        template, inputs,
+        options: { font },
+        plugins: {
+          text,
+          image,
+          qrcode: barcodes.qrcode,
+        }
+      });
       const blob = new Blob([pdf.buffer], { type: "application/pdf" });
       window.open(URL.createObjectURL(blob));
     }
@@ -145,7 +163,7 @@ ${e}`);
         <span style={{ margin: "0 1rem" }}>/</span>
         <button onClick={onGeneratePDF}>Generate PDF</button>
       </header>
-      <div ref={designerRef} />
+      <div ref={designerRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }}/>
     </div>
   );
 }

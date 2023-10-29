@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { Form, Viewer, Template, checkTemplate } from "@pdfme/ui";
+import { Template, checkTemplate } from "@pdfme/common";
+import { Form, Viewer } from "@pdfme/ui";
 import { generate } from "@pdfme/generator";
+import { text, barcodes, image } from "@pdfme/schemas"
 import {
   getFontsData,
   getTemplate,
   getTemplateFromJsonFile,
   isJsonString,
 } from "./helper";
+
+const headerHeight = 65;
 
 type Mode = "form" | "viewer";
 
@@ -53,6 +57,11 @@ function App() {
           template,
           inputs,
           options: { font },
+          plugins: {
+            text,
+            image,
+            qrcode: barcodes.qrcode,
+          }
         });
       }
     });
@@ -128,7 +137,16 @@ ${e}`);
       const template = ui.current.getTemplate();
       const inputs = ui.current.getInputs();
       const font = await getFontsData();
-      const pdf = await generate({ template, inputs, options: { font } });
+      const pdf = await generate({
+        template,
+        inputs,
+        options: { font },
+        plugins: {
+          text,
+          image,
+          qrcode: barcodes.qrcode,
+        }
+      });
       const blob = new Blob([pdf.buffer], { type: "application/pdf" });
       window.open(URL.createObjectURL(blob));
     }
@@ -182,7 +200,7 @@ ${e}`);
         <span style={{ margin: "0 1rem" }}>/</span>
         <button onClick={onGeneratePDF}>Generate PDF</button>
       </header>
-      <div ref={uiRef} />
+      <div ref={uiRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }}/>
     </div>
   );
 }

@@ -136,6 +136,7 @@ ${e}`);
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          marginRight: 120,
         }}
       >
         <strong>Designer</strong>

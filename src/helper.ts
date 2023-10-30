@@ -11,16 +11,6 @@ const fontObjList = [
     label: "NotoSansJP-Regular",
     url: "/fonts/NotoSansJP-Regular.otf",
   },
-  {
-    fallback: false,
-    label: "NotoSansSC-Regular",
-    url: "/fonts/NotoSansSC-Regular.otf",
-  },
-  {
-    fallback: false,
-    label: "ZenKurenaido-Regular",
-    url: "/fonts/ZenKurenaido-Regular.ttf",
-  },
 ];
 
 export const getFontsData = async () => {

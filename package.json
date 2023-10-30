@@ -28,6 +28,8 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "generate": "ts-node generator.ts",
     "start": "PORT=3006 react-scripts start",
     "build": "react-scripts build",
@@ -53,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^6.0.0",
     "typescript": "^4.9.5"
   }
 }

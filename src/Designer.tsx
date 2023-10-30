@@ -3,6 +3,7 @@ import { Template, checkTemplate } from "@pdfme/common";
 import { Designer } from "@pdfme/ui";
 import { generate } from "@pdfme/generator";
 import { text, barcodes, image } from "@pdfme/schemas"
+import plugins from "./plugins"
 import {
   getFontsData,
   getTemplate,
@@ -39,6 +40,7 @@ function App() {
           options: { font },
           plugins: {
             text,
+            signature: plugins.signature,
             image,
             qrcode: barcodes.qrcode,
           }
@@ -117,6 +119,7 @@ ${e}`);
         options: { font },
         plugins: {
           text,
+          signature: plugins.signature,
           image,
           qrcode: barcodes.qrcode,
         }
@@ -163,7 +166,7 @@ ${e}`);
         <span style={{ margin: "0 1rem" }}>/</span>
         <button onClick={onGeneratePDF}>Generate PDF</button>
       </header>
-      <div ref={designerRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }}/>
+      <div ref={designerRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }} />
     </div>
   );
 }

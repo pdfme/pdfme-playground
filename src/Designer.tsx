@@ -1,15 +1,14 @@
 import { useEffect, useRef } from "react";
 import { Template, checkTemplate } from "@pdfme/common";
 import { Designer } from "@pdfme/ui";
-import { generate } from "@pdfme/generator";
-import { text, barcodes, image } from "@pdfme/schemas"
-import plugins from "./plugins"
 import {
   getFontsData,
   getTemplate,
   readFile,
   cloneDeep,
-  getTemplateFromJsonFile,
+  getPlugins,
+  handleLoadTemplate,
+  generatePDF,
   downloadJsonFile,
 } from "./helper";
 
@@ -38,12 +37,7 @@ function App() {
           domContainer: designerRef.current,
           template,
           options: { font },
-          plugins: {
-            text,
-            signature: plugins.signature,
-            image,
-            qrcode: barcodes.qrcode,
-          }
+          plugins: getPlugins(),
         });
         designer.current.onSaveTemplate(onSaveTemplate);
       }
@@ -66,22 +60,6 @@ function App() {
           );
         }
       });
-    }
-  };
-
-  const onLoadTemplate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target && e.target.files) {
-      getTemplateFromJsonFile(e.target.files[0])
-        .then((t) => {
-          if (designer.current) {
-            designer.current.updateTemplate(t);
-          }
-        })
-        .catch((e) => {
-          alert(`Invalid template file.
---------------------------
-${e}`);
-        });
     }
   };
 
@@ -109,54 +87,19 @@ ${e}`);
     }
   };
 
-  const onGeneratePDF = async () => {
-    if (designer.current) {
-      const template = designer.current.getTemplate();
-      const inputs = template.sampledata ?? [];
-      const font = await getFontsData();
-      const pdf = await generate({
-        template, inputs,
-        options: { font },
-        plugins: {
-          text,
-          signature: plugins.signature,
-          image,
-          qrcode: barcodes.qrcode,
-        }
-      });
-      const blob = new Blob([pdf.buffer], { type: "application/pdf" });
-      window.open(URL.createObjectURL(blob));
-    }
-  };
-
   return (
     <div>
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginRight: 120,
-        }}
-      >
+      <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginRight: 120, }}>
         <strong>Designer</strong>
         <span style={{ margin: "0 1rem" }}>:</span>
         <label style={{ width: 180 }}>
           Change BasePDF
-          <input
-            type="file"
-            accept="application/pdf"
-            onChange={onChangeBasePDF}
-          />
+          <input type="file" accept="application/pdf" onChange={onChangeBasePDF} />
         </label>
         <span style={{ margin: "0 1rem" }}>/</span>
         <label style={{ width: 180 }}>
           Load Template
-          <input
-            type="file"
-            accept="application/json"
-            onChange={onLoadTemplate}
-          />
+          <input type="file" accept="application/json" onChange={(e) => handleLoadTemplate(e, designer.current)} />
         </label>
         <span style={{ margin: "0 1rem" }}>/</span>
         <button onClick={onDownloadTemplate}>Download Template</button>
@@ -165,7 +108,7 @@ ${e}`);
         <span style={{ margin: "0 1rem" }}>/</span>
         <button onClick={onResetTemplate}>Reset Template</button>
         <span style={{ margin: "0 1rem" }}>/</span>
-        <button onClick={onGeneratePDF}>Generate PDF</button>
+        <button onClick={() => generatePDF(designer.current)}>Generate PDF</button>
       </header>
       <div ref={designerRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }} />
     </div>

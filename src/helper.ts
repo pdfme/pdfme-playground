@@ -102,10 +102,10 @@ ${e}`);
 
 export const getPlugins = () => {
   return {
-    text,
-    signature: plugins.signature,
-    image,
-    qrcode: barcodes.qrcode,
+    Text: text,
+    Signature: plugins.signature,
+    QR: barcodes.qrcode,
+    Image: image,
   }
 }
 
